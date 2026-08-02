@@ -4,12 +4,12 @@
   --ink-soft: rgba(17, 17, 17, 0.58);
   --ink-faint: rgba(17, 17, 17, 0.36);
   --line: rgba(17, 17, 17, 0.16);
-  --gold: #e6c56a;
-  --peach: #efb48a;
-  --rose: #e9b0c4;
-  --lilac: #c6b4db;
-  --blue: #a7b5cf;
-  --mist: #c4ccd6;
+  --gold: #d9b85a;
+  --peach: #e5a87c;
+  --rose: #e0a4b8;
+  --lilac: #bba8d0;
+  --blue: #98a8c2;
+  --mist: #b6bfc9;
   --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
   --sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -171,8 +171,8 @@ a:focus-visible {
   margin: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.56;
-  filter: blur(72px) saturate(0.9);
+  opacity: 0.58;
+  filter: blur(72px) saturate(0.92);
   /* Follows cursor with offset applied in JS */
   transform: translate3d(var(--ax), var(--ay), 0) translate(-50%, -50%);
   animation: aura-breathe 18s ease-in-out infinite alternate;
@@ -192,7 +192,7 @@ a:focus-visible {
   width: 88%;
   height: 34%;
   top: 18%;
-  background: radial-gradient(ellipse at 50% 55%, var(--gold) 0%, rgba(230, 197, 106, 0.5) 38%, transparent 72%);
+  background: radial-gradient(ellipse at 50% 55%, var(--gold) 0%, rgba(217, 184, 90, 0.52) 38%, transparent 72%);
   animation: drift-gold 12s ease-in-out infinite;
 }
 
@@ -200,7 +200,7 @@ a:focus-visible {
   width: 92%;
   height: 36%;
   top: 34%;
-  background: radial-gradient(ellipse at 50% 50%, var(--peach) 0%, rgba(239, 180, 138, 0.48) 40%, transparent 72%);
+  background: radial-gradient(ellipse at 50% 50%, var(--peach) 0%, rgba(229, 168, 124, 0.5) 40%, transparent 72%);
   animation: drift-peach 16s ease-in-out infinite;
 }
 
@@ -208,7 +208,7 @@ a:focus-visible {
   width: 94%;
   height: 38%;
   top: 50%;
-  background: radial-gradient(ellipse at 50% 50%, var(--rose) 0%, rgba(233, 176, 196, 0.52) 40%, transparent 72%);
+  background: radial-gradient(ellipse at 50% 50%, var(--rose) 0%, rgba(224, 164, 184, 0.54) 40%, transparent 72%);
   animation: drift-rose 14s ease-in-out infinite;
 }
 
@@ -216,7 +216,7 @@ a:focus-visible {
   width: 92%;
   height: 38%;
   top: 64%;
-  background: radial-gradient(ellipse at 50% 50%, var(--lilac) 0%, rgba(198, 180, 219, 0.48) 42%, transparent 74%);
+  background: radial-gradient(ellipse at 50% 50%, var(--lilac) 0%, rgba(187, 168, 208, 0.5) 42%, transparent 74%);
   animation: drift-lilac 18s ease-in-out infinite;
 }
 
@@ -224,7 +224,7 @@ a:focus-visible {
   width: 96%;
   height: 40%;
   top: 80%;
-  background: radial-gradient(ellipse at 50% 40%, var(--blue) 0%, rgba(167, 181, 207, 0.5) 36%, rgba(196, 204, 214, 0.22) 58%, transparent 76%);
+  background: radial-gradient(ellipse at 50% 40%, var(--blue) 0%, rgba(152, 168, 194, 0.52) 36%, rgba(182, 191, 201, 0.24) 58%, transparent 76%);
   animation: drift-blue 15s ease-in-out infinite;
 }
 
@@ -1234,12 +1234,12 @@ main,
 
 @keyframes aura-breathe {
   from {
-    filter: blur(68px) saturate(0.86);
-    opacity: 0.5;
+    filter: blur(68px) saturate(0.88);
+    opacity: 0.52;
   }
   to {
-    filter: blur(78px) saturate(0.94);
-    opacity: 0.6;
+    filter: blur(78px) saturate(0.96);
+    opacity: 0.64;
   }
 }
 

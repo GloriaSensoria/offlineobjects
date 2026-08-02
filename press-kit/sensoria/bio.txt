@@ -3,7 +3,7 @@ SENSORIA — Author / Team Bio
 
 SHORT BIO (≈50 words)
 ---------------------
-Replace with a short author or team bio for bylines, event listings, and
+Replace with a short author or team bio for bylines, community listings, and
 social captions.
 
 

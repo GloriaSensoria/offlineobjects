@@ -6,12 +6,12 @@
     <title>Offline Objects</title>
     <meta
       name="description"
-      content="Offline Objects — books and gatherings about attention, the senses, and what returns when we stay with the world. Home of Sensoria."
+      content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -21,10 +21,10 @@
 
     <header class="site-header">
       <a class="wordmark" href="index.html">offline objects</a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="books-events.html">books &amp; events</a>
-        <a href="about.html">about</a>
-        <a href="contact.html">contact</a>
+            <nav class="site-nav" aria-label="Primary">
+        <a href="books-community.html" data-text="books & community">books &amp; community</a>
+        <a href="about.html" data-text="about">about</a>
+        <a href="contact.html" data-text="contact">contact</a>
       </nav>
     </header>
 
@@ -43,37 +43,40 @@
             <span class="brand-line">offline objects</span>
           </h1>
           <p class="lede">
-            Books and gatherings about attention, the senses,
-            and what returns when we stay with the world.
+            Curator led emerging Art, Design, and Architecture.
+            Formed in Los Angeles 2024.
           </p>
           <p class="cta-row">
-            <a class="cta" href="books-events.html">Books &amp; events</a>
-            <a class="cta cta-secondary" href="contact.html">Contact</a>
+            <a class="cta" href="books-community.html">Books &amp; community</a>
+            <a class="cta cta-secondary" href="#updates">Sign up for updates</a>
           </p>
         </div>
       </section>
 
-      <section class="passage" aria-label="Book one">
-        <p class="eyebrow">book one</p>
-        <h2>
-          For anyone who has felt the world grow louder
-          than their own perception.
-        </h2>
-        <p class="body">
-          <em>Sensoria</em> is an invitation back into the body—
-          into texture, temperature, scent, and the small
-          thresholds where meaning gathers.
-        </p>
-        <p class="cta-row passage-cta">
-          <a class="cta" href="books-events.html">Books &amp; events</a>
-          <a class="cta cta-secondary" href="about.html">About</a>
-        </p>
+      <section class="notify home-updates" id="updates" aria-label="Sign up for updates">
+        <div class="notify-inner">
+          <h2>Sign up for updates</h2>
+          <p>Occasional notes on books, community, and what’s next.</p>
+          <form class="notify-form" data-notify-form action="#" method="post">
+            <label class="sr-only" for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="form-note" data-note hidden></p>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <nav class="footer-nav" aria-label="Footer">
-        <a href="books-events.html">books &amp; events</a>
+        <a href="books-community.html">books &amp; community</a>
         <a href="about.html">about</a>
         <a href="contact.html">contact</a>
       </nav>

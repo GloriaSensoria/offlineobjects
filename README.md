@@ -56,5 +56,9 @@ window.OFFLINE_OBJECTS_FORMS = {
 };
 ```
 
-Each submission appends a row: **Timestamp · Form · Email · Name · Topic · Message**  
-(`form` is `updates` or `contact`).
+Each submission appends a row:
+
+- **updates** (home signup) → **Responses** tab: Timestamp · Email  
+- **contact** (Contact Us) → **Contact Us** tab (`gid=1120393047`): Timestamp · Name · Email · Topic · Message
+
+After editing `Code.gs` in Apps Script, deploy a **New version** for changes to go live.

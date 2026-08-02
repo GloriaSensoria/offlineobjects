@@ -3,13 +3,18 @@
  *
  * Sheet: https://docs.google.com/spreadsheets/d/15ycffCNMmwYmExBdnuI3bMUz96qFxS15ClS5fpChbuU
  *
+ * Tabs:
+ * - updates → "Responses"
+ * - contact → "Contact Us" (gid 1120393047)
+ *
  * After changing this file: Deploy → Manage deployments → pencil →
  * New version → Deploy. Who has access: Anyone
- *
- * Writes to the first tab in the spreadsheet (leftmost sheet).
  */
 
 var SPREADSHEET_ID = "15ycffCNMmwYmExBdnuI3bMUz96qFxS15ClS5fpChbuU";
+var CONTACT_SHEET_ID = 1120393047;
+var UPDATES_SHEET_NAME = "Responses";
+var CONTACT_SHEET_NAME = "Contact Us";
 
 function doPost(e) {
   return handle_(e);
@@ -30,29 +35,32 @@ function handle_(e) {
       });
     }
 
-    // Always open by ID so we never write to a different workbook.
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = ss.getSheets()[0];
+    const formType = String(data.form || "").toLowerCase();
+    const sheet =
+      formType === "contact"
+        ? getContactSheet_(ss)
+        : getUpdatesSheet_(ss);
 
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
+    if (formType === "contact") {
+      ensureHeaders_(sheet, [
         "Timestamp",
-        "Form",
-        "Email",
         "Name",
+        "Email",
         "Topic",
         "Message",
       ]);
+      sheet.appendRow([
+        new Date(),
+        String(data.name || ""),
+        String(data.email || ""),
+        String(data.topic || ""),
+        String(data.message || ""),
+      ]);
+    } else {
+      ensureHeaders_(sheet, ["Timestamp", "Email"]);
+      sheet.appendRow([new Date(), String(data.email || "")]);
     }
-
-    sheet.appendRow([
-      new Date(),
-      String(data.form || ""),
-      String(data.email || ""),
-      String(data.name || ""),
-      String(data.topic || ""),
-      String(data.message || ""),
-    ]);
 
     SpreadsheetApp.flush();
 
@@ -62,10 +70,41 @@ function handle_(e) {
       spreadsheetUrl: ss.getUrl(),
       sheet: sheet.getName(),
       row: sheet.getLastRow(),
+      form: formType,
       email: String(data.email || ""),
     });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
+  }
+}
+
+function getUpdatesSheet_(ss) {
+  var sheet = ss.getSheetByName(UPDATES_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(UPDATES_SHEET_NAME);
+  }
+  return sheet;
+}
+
+function getContactSheet_(ss) {
+  var sheet = null;
+  try {
+    sheet = ss.getSheetById(CONTACT_SHEET_ID);
+  } catch (err) {
+    sheet = null;
+  }
+  if (!sheet) {
+    sheet = ss.getSheetByName(CONTACT_SHEET_NAME);
+  }
+  if (!sheet) {
+    throw new Error('Contact sheet "' + CONTACT_SHEET_NAME + '" not found');
+  }
+  return sheet;
+}
+
+function ensureHeaders_(sheet, headers) {
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
   }
 }
 

@@ -70,11 +70,11 @@
         throw new Error((result && result.error) || "Submission failed");
       }
 
-      note.textContent = successMessage;
+      // Never surface sheet/row debug text in the UI.
+      note.textContent = String(successMessage || "")
+        .split(/\s+Saved on\b/i)[0]
+        .trim();
       form.reset();
-      if (result.spreadsheetUrl) {
-        console.info("Form saved:", result);
-      }
     } catch (err) {
       note.textContent =
         "Something went wrong. Please try again or email dearofflineobjects@gmail.com.";

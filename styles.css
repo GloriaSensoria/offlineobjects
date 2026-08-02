@@ -1183,6 +1183,26 @@ main,
   font-weight: 700;
 }
 
+.footer-nav a.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.footer-nav a.footer-social:hover,
+.footer-nav a.footer-social:focus-visible,
+.footer-nav a.footer-social:active {
+  font-weight: 400;
+}
+
+.footer-social svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+  fill: currentColor;
+}
+
 .site-footer p {
   margin: 0;
   font-size: 0.75rem;

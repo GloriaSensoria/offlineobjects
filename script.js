@@ -25,6 +25,68 @@
     revealTargets.forEach((el) => el.classList.add("is-visible"));
   }
 
+  const scriptUrl =
+    (window.OFFLINE_OBJECTS_FORMS &&
+      window.OFFLINE_OBJECTS_FORMS.googleScriptUrl) ||
+    "";
+
+  async function submitToSheet(payload, { form, note, successMessage }) {
+    if (!note) return;
+
+    note.hidden = false;
+
+    if (!scriptUrl) {
+      note.textContent =
+        "Form isn’t connected yet. Add your Google Apps Script URL in form-config.js.";
+      return;
+    }
+
+    const button = form.querySelector('[type="submit"]');
+    if (button) button.disabled = true;
+    note.textContent = "Sending…";
+
+    try {
+      // Apps Script web apps handle GET reliably; POST often 405s after redirect.
+      const params = new URLSearchParams();
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value != null && String(value) !== "") {
+          params.set(key, String(value));
+        }
+      });
+
+      const response = await fetch(`${scriptUrl}?${params.toString()}`, {
+        method: "GET",
+        redirect: "follow",
+      });
+      const text = await response.text();
+      let result = null;
+      try {
+        result = JSON.parse(text);
+      } catch (err) {
+        throw new Error("Unexpected response from form service");
+      }
+
+      if (!result || result.ok !== true) {
+        throw new Error((result && result.error) || "Submission failed");
+      }
+
+      const where =
+        result.sheet && result.row
+          ? ` Saved on “${result.sheet}” (row ${result.row}).`
+          : "";
+      note.textContent = successMessage + where;
+      form.reset();
+      if (result.spreadsheetUrl) {
+        console.info("Form saved:", result);
+      }
+    } catch (err) {
+      note.textContent =
+        "Something went wrong. Please try again or email dearofflineobjects@gmail.com.";
+    } finally {
+      if (button) button.disabled = false;
+    }
+  }
+
   document.querySelectorAll("[data-notify-form]").forEach((form) => {
     const note =
       form.parentElement?.querySelector("[data-note]") ||
@@ -32,14 +94,17 @@
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const email = new FormData(form).get("email");
+      const email = String(new FormData(form).get("email") || "").trim();
       if (!email) return;
 
-      if (note && "hidden" in note) {
-        note.hidden = false;
-        note.textContent = "You're on the list. We'll be in touch.";
-      }
-      form.reset();
+      submitToSheet(
+        { form: "updates", email },
+        {
+          form,
+          note,
+          successMessage: "You're on the list. We'll be in touch.",
+        }
+      );
     });
   });
 
@@ -49,10 +114,22 @@
   if (contactForm && contactNote) {
     contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      contactNote.hidden = false;
-      contactNote.textContent =
-        "Thanks — your message is ready to send once email is wired up.";
-      contactForm.reset();
+      const data = new FormData(contactForm);
+
+      submitToSheet(
+        {
+          form: "contact",
+          name: String(data.get("name") || "").trim(),
+          email: String(data.get("email") || "").trim(),
+          topic: String(data.get("topic") || "").trim(),
+          message: String(data.get("message") || "").trim(),
+        },
+        {
+          form: contactForm,
+          note: contactNote,
+          successMessage: "Thanks — your message is on its way.",
+        }
+      );
     });
   }
 

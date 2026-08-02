@@ -1,0 +1,18 @@
+SENSORIA — Author / Team Bio
+============================
+
+SHORT BIO (≈50 words)
+---------------------
+Replace with a short author or team bio for bylines, event listings, and
+social captions.
+
+
+LONG BIO (≈150–200 words)
+-------------------------
+Replace with a longer bio covering background, previous work, and the
+origin of Sensoria.
+
+
+CREDIT LINE
+-----------
+Suggested: [Author Name], author of Sensoria (Offline Objects)

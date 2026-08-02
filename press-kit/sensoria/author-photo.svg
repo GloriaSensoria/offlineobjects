@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2000" viewBox="0 0 1600 2000" role="img" aria-label="Author photo placeholder">
+  <rect width="1600" height="2000" fill="#e8e6e2"/>
+  <circle cx="800" cy="780" r="220" fill="#cfc9c0"/>
+  <ellipse cx="800" cy="1400" rx="420" ry="360" fill="#cfc9c0"/>
+  <text x="800" y="1850" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="36" fill="#111" opacity="0.45">author photo placeholder</text>
+</svg>

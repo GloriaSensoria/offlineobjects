@@ -1,0 +1,33 @@
+SENSORIA — Fact Sheet
+=====================
+
+Title: Sensoria
+Imprint: Offline Objects
+Subtitle: [add if needed]
+Author / Team: [names]
+Publisher: [publisher]
+Format: [hardcover / paperback / ebook]
+Page count: [TBD]
+ISBN: [TBD]
+Publication date: [TBD]
+Price: [TBD]
+Website: [your domain]
+Press contact: dearofflineobjects@gmail.com
+
+
+Key themes
+----------
+- Sensory attention
+- Embodiment
+- Quiet intelligence of perception
+
+
+Pull quotes (placeholders)
+--------------------------
+“[Quote one.]” — [Source]
+“[Quote two.]” — [Source]
+
+
+Assets
+------
+Cover, author photo, synopsis, and bios are available at /press.html

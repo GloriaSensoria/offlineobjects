@@ -175,7 +175,7 @@ a:focus-visible {
   filter: blur(72px) saturate(0.92);
   /* Follows cursor with offset applied in JS */
   transform: translate3d(var(--ax), var(--ay), 0) translate(-50%, -50%);
-  animation: aura-breathe 18s ease-in-out infinite alternate;
+  animation: aura-breathe 24s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -193,7 +193,7 @@ a:focus-visible {
   height: 34%;
   top: 18%;
   background: radial-gradient(ellipse at 50% 55%, var(--gold) 0%, rgba(217, 184, 90, 0.52) 38%, transparent 72%);
-  animation: drift-gold 12s ease-in-out infinite;
+  animation: drift-gold 18s ease-in-out infinite;
 }
 
 .blob-peach {
@@ -201,7 +201,7 @@ a:focus-visible {
   height: 36%;
   top: 34%;
   background: radial-gradient(ellipse at 50% 50%, var(--peach) 0%, rgba(229, 168, 124, 0.5) 40%, transparent 72%);
-  animation: drift-peach 16s ease-in-out infinite;
+  animation: drift-peach 22s ease-in-out infinite;
 }
 
 .blob-rose {
@@ -209,7 +209,7 @@ a:focus-visible {
   height: 38%;
   top: 50%;
   background: radial-gradient(ellipse at 50% 50%, var(--rose) 0%, rgba(224, 164, 184, 0.54) 40%, transparent 72%);
-  animation: drift-rose 14s ease-in-out infinite;
+  animation: drift-rose 20s ease-in-out infinite;
 }
 
 .blob-lilac {
@@ -217,7 +217,7 @@ a:focus-visible {
   height: 38%;
   top: 64%;
   background: radial-gradient(ellipse at 50% 50%, var(--lilac) 0%, rgba(187, 168, 208, 0.5) 42%, transparent 74%);
-  animation: drift-lilac 18s ease-in-out infinite;
+  animation: drift-lilac 26s ease-in-out infinite;
 }
 
 .blob-blue {
@@ -225,7 +225,7 @@ a:focus-visible {
   height: 40%;
   top: 80%;
   background: radial-gradient(ellipse at 50% 40%, var(--blue) 0%, rgba(152, 168, 194, 0.52) 36%, rgba(182, 191, 201, 0.24) 58%, transparent 76%);
-  animation: drift-blue 15s ease-in-out infinite;
+  animation: drift-blue 22s ease-in-out infinite;
 }
 
 main,

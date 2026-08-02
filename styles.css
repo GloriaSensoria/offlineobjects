@@ -468,6 +468,12 @@ main,
   opacity: 1;
 }
 
+.notify-form button:disabled,
+.text-submit:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+
 .form-note {
   margin-top: 1.1rem !important;
   font-size: 0.9rem !important;

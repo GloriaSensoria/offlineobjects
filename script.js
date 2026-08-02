@@ -70,11 +70,7 @@
         throw new Error((result && result.error) || "Submission failed");
       }
 
-      const where =
-        result.sheet && result.row
-          ? ` Saved on “${result.sheet}” (row ${result.row}).`
-          : "";
-      note.textContent = successMessage + where;
+      note.textContent = successMessage;
       form.reset();
       if (result.spreadsheetUrl) {
         console.info("Form saved:", result);

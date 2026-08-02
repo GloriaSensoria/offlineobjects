@@ -1,0 +1,38 @@
+OFFLINE OBJECTS — Brand Notes
+=============================
+
+Site / imprint
+--------------
+Wordmark: lowercase “offline objects” in a classical serif
+(site uses Cormorant Garamond).
+
+
+Book one
+--------
+Title: Sensoria
+Keep the book title distinct from the Offline Objects imprint.
+
+
+Aura palette (approx.)
+----------------------
+Gold   #e6c56a
+Peach  #efb48a
+Rose   #e9b0c4
+Lilac  #c6b4db
+Blue   #a7b5cf
+Ground #f2f1ef
+Ink    #111111
+
+
+Usage
+-----
+Soft mesh / aurora gradients behind type are on-brand.
+The aurora follows the cursor on the site.
+Avoid heavy UI chrome, loud color blocks, and all-caps lockups.
+
+
+Files in this kit
+-----------------
+- cover.svg / cover.jpg — Sensoria cover
+- author-photo.svg / .jpg — portrait
+- synopsis.txt, bio.txt, fact-sheet.txt

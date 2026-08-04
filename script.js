@@ -136,7 +136,7 @@
     document.body.prepend(aura);
 
     const offsetX = 120;
-    const idleAfterMs = 1100;
+    const idleAfterMs = 1400;
     let cursorX = window.innerWidth * 0.5 + offsetX;
     let cursorY = window.innerHeight * 0.5;
     let currentX = cursorX;
@@ -166,31 +166,32 @@
 
       // Ease toward wander when idle; slowly return to cursor when active
       const blendGoal = isIdle ? 0 : 1;
-      followBlend += (blendGoal - followBlend) * (isIdle ? 0.022 : 0.03);
+      followBlend += (blendGoal - followBlend) * (isIdle ? 0.014 : 0.02);
 
       if (isIdle) {
         const dx = wanderTargetX - wanderX;
         const dy = wanderTargetY - wanderY;
         if (now > nextRetarget || dx * dx + dy * dy < 6400) {
           pickWanderTarget();
-          nextRetarget = now + 2200 + Math.random() * 2800;
+          nextRetarget = now + 3200 + Math.random() * 3600;
         }
       } else {
         // Keep wander near the live position so idle handoff stays soft
         wanderTargetX = currentX;
         wanderTargetY = currentY;
-        nextRetarget = now + 900;
+        nextRetarget = now + 1400;
       }
 
-      // More obvious random drift across the screen
-      wanderX += (wanderTargetX - wanderX) * 0.014;
-      wanderY += (wanderTargetY - wanderY) * 0.014;
+      // Slower random drift across the screen
+      wanderX += (wanderTargetX - wanderX) * 0.008;
+      wanderY += (wanderTargetY - wanderY) * 0.008;
 
       const desiredX = wanderX + (cursorX - wanderX) * followBlend;
       const desiredY = wanderY + (cursorY - wanderY) * followBlend;
 
-      currentX += (desiredX - currentX) * 0.06;
-      currentY += (desiredY - currentY) * 0.06;
+      // Softer lag behind the cursor
+      currentX += (desiredX - currentX) * 0.035;
+      currentY += (desiredY - currentY) * 0.035;
       place(currentX, currentY);
       frame = requestAnimationFrame(tick);
     };

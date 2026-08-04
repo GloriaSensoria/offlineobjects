@@ -1171,20 +1171,36 @@ main,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem 1.25rem;
+  align-items: center;
+  gap: 0.85rem 1.75rem;
   margin-bottom: 1.25rem;
 }
 
-.footer-nav a {
+.footer-nav a:not(.footer-social) {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.2rem 0.45rem;
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: lowercase;
   color: var(--ink-soft);
 }
 
-.footer-nav a:hover,
-.footer-nav a:focus-visible,
-.footer-nav a:active {
+/* Reserve bold width so hover doesn’t nudge neighboring footer links */
+.footer-nav a:not(.footer-social)::after {
+  content: attr(data-text);
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+}
+
+.footer-nav a:not(.footer-social):hover,
+.footer-nav a:not(.footer-social):focus-visible,
+.footer-nav a:not(.footer-social):active {
   color: var(--ink);
   font-weight: 700;
 }

@@ -276,7 +276,8 @@ main,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.25rem 1.75rem;
+  align-items: center;
+  gap: 1.25rem 3.5rem;
   margin: 2.4rem 0 0;
   opacity: 0;
   transform: translateY(12px);
@@ -284,16 +285,29 @@ main,
 }
 
 .cta {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 0.82rem;
   letter-spacing: 0.12em;
   text-transform: lowercase;
   border-bottom: 1px solid var(--ink);
-  padding-bottom: 0.15rem;
+  padding: 0.15rem 0.35rem 0.2rem;
   transition:
     color 0.35s var(--ease),
     border-color 0.35s var(--ease),
     font-weight 0.15s var(--ease);
+}
+
+/* Reserve bold width so hover doesn’t nudge neighboring CTAs */
+.cta::after {
+  content: attr(data-text);
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
 }
 
 .cta:hover,

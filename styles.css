@@ -1003,7 +1003,7 @@ main,
 
 .book-cover-col {
   display: grid;
-  gap: 1.25rem;
+  gap: 2rem;
   justify-items: center;
   width: min(280px, 70vw);
   margin: 0 auto;

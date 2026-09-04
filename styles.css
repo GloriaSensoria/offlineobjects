@@ -1091,6 +1091,11 @@ main,
 }
 
 /* Community landing — schedule-led, distinct from book pages */
+.community-hero {
+  min-height: 42svh;
+  padding: 7.5rem 1.5rem 2.5rem;
+}
+
 .community-hero h1 {
   font-size: clamp(2.2rem, 6vw, 3.6rem);
   max-width: 18ch;
@@ -1098,21 +1103,9 @@ main,
   margin-right: auto;
 }
 
-.community-layout {
-  display: grid;
-  gap: 3rem;
-}
-
-@media (min-width: 860px) {
-  .community-layout {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3.5rem;
-    align-items: start;
-  }
-}
-
 .community-aside {
   padding-top: 0.25rem;
+  text-align: left;
 }
 
 .community-aside .eyebrow {
@@ -1124,6 +1117,7 @@ main,
   list-style: none;
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
 .community-schedule li {
@@ -1131,6 +1125,8 @@ main,
   gap: 0.25rem;
   padding: 1.15rem 0;
   border-bottom: 1px solid var(--line);
+  justify-items: start;
+  text-align: left;
 }
 
 .community-schedule time {
@@ -1145,6 +1141,11 @@ main,
   font-weight: 400;
   font-size: 1.35rem;
   line-height: 1.2;
+}
+
+.community-schedule strong a:hover,
+.community-schedule strong a:focus-visible {
+  opacity: 0.55;
 }
 
 .community-schedule span {

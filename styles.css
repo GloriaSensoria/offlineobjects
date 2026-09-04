@@ -588,6 +588,104 @@ main,
   opacity: 0.55;
 }
 
+.interview-prose .interview-q {
+  margin-top: 2rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.interview-hero {
+  min-height: auto;
+  padding: 7.5rem 1.5rem 1.75rem;
+}
+
+.interview-content {
+  padding-top: 1.5rem;
+}
+
+.interview-content.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.interview-prose .interview-figure {
+  margin: 0 0 2rem;
+}
+
+.interview-prose .interview-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.interview-prose .interview-figure-pair {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+  align-items: flex-start;
+  width: 100%;
+  margin: 2rem 0 0.75rem;
+}
+
+.interview-prose .interview-figure-pair .interview-figure {
+  margin: 0;
+  min-width: 0;
+  line-height: 0;
+}
+
+/* flex-grow = image aspect ratio (w/h) so both share one height and fill the column */
+.interview-prose .interview-figure-pair .interview-figure:first-child {
+  flex: 0.7108 1 0%;
+}
+
+.interview-prose .interview-figure-pair .interview-figure:last-child {
+  flex: 1.4444 1 0%;
+}
+
+.interview-prose .interview-figure-pair .interview-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 560px) {
+  .interview-prose .interview-figure-pair {
+    flex-wrap: wrap;
+  }
+
+  .interview-prose .interview-figure-pair .interview-figure:first-child,
+  .interview-prose .interview-figure-pair .interview-figure:last-child {
+    flex: 1 1 100%;
+  }
+}
+
+.interview-prose .interview-credit {
+  margin: 0.75rem 0 0;
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.interview-prose p.interview-credit {
+  margin: 2rem 0;
+}
+
+.interview-prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0 0 0 1.15rem;
+  border-left: 1px solid var(--line);
+}
+
+.interview-prose blockquote p {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink);
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
 .contact-layout {
   display: grid;
   gap: 3rem;

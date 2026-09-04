@@ -1238,6 +1238,15 @@ main,
   text-align: left;
 }
 
+.community-interviews {
+  margin-bottom: 2.25rem;
+}
+
+.community-exhibitions {
+  padding-top: 0.75rem;
+  margin-top: 0;
+}
+
 .community-aside .eyebrow {
   margin-bottom: 1rem;
   text-align: left;

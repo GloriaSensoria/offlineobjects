@@ -1001,6 +1001,30 @@ main,
   width: min(280px, 70vw);
 }
 
+.book-cover-col {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  width: min(280px, 70vw);
+  margin: 0 auto;
+}
+
+.book-cover-col .book-cover {
+  width: 100%;
+  margin: 0;
+}
+
+.book-buy {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.book-buy stripe-buy-button {
+  display: block;
+  max-width: 100%;
+}
+
 .book-cover img {
   width: 100%;
   height: auto;

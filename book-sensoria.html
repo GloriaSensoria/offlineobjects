@@ -53,14 +53,26 @@
 
       <section class="page-content book-overview reveal-section">
         <div class="book-stage">
-          <figure class="book-cover">
-            <img
-              src="press-kit/sensoria/cover.png"
-              alt="Sensoria book cover"
-              width="750"
-              height="954"
-            />
-          </figure>
+          <div class="book-cover-col">
+            <figure class="book-cover">
+              <img
+                src="press-kit/sensoria/cover.png"
+                alt="Sensoria book cover"
+                width="750"
+                height="954"
+              />
+            </figure>
+            <div class="book-buy">
+              <stripe-buy-button
+                buy-button-id="buy_btn_1U88s6E7fBdxAoZ8fabWtYpz"
+                publishable-key="pk_live_51U1U5GE7fBdxAoZ8ym6yYsIjaZZ9f1Jwj6FW4AdKXcIOHG3zDL1ty1dpYzElaCoC4y2Cp602qpJlOujCBoWv4Z7S00iFSvfrEj"
+              >
+              </stripe-buy-button>
+              <noscript>
+                <a class="cta" href="https://buy.stripe.com/28E8wPgb85LV64x3G348001">Buy Sensoria</a>
+              </noscript>
+            </div>
+          </div>
           <div class="book-meta">
             <p class="eyebrow">details</p>
             <dl class="meta-list">
@@ -123,6 +135,7 @@
       <p>© <span data-year></span> Offline Objects</p>
     </footer>
 
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

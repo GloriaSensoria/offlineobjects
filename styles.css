@@ -599,13 +599,21 @@ main,
   padding: 7.5rem 1.5rem 1.75rem;
 }
 
+.interview-hero .eyebrow,
+.interview-hero h1,
+.interview-hero .lede {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
 .interview-content {
   padding-top: 1.5rem;
 }
 
 .interview-content.reveal {
-  opacity: 1;
-  transform: none;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .interview-prose .interview-figure {

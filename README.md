@@ -13,12 +13,12 @@ Open [http://127.0.0.1:5180](http://127.0.0.1:5180).
 | Page | Path |
 |------|------|
 | Home | `/` |
-| Books & Community | `/books-community.html` |
-| Book one · Sensoria | `/book-sensoria.html` |
-| Book two | `/book-two.html` |
-| Community | `/community.html` |
-| About | `/about.html` |
-| Contact Us | `/contact.html` |
+| Books & Community | `/books-community/` |
+| Book one · Sensoria | `/book-sensoria/` |
+| Book two | `/book-two/` |
+| Community | `/community/` |
+| About | `/about/` |
+| Contact Us | `/contact/` |
 
 ## Forms → Google Sheet
 

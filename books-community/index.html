@@ -3,23 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Offline Objects</title>
+    <title>Books — Offline Objects</title>
     <meta
       name="description"
-      content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024."
+      content="Current and upcoming books from Offline Objects."
     />
-    <link rel="canonical" href="https://www.offlineobjects.space/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Offline Objects" />
-    <meta property="og:title" content="Offline Objects" />
-    <meta property="og:description" content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024." />
-    <meta property="og:url" content="https://www.offlineobjects.space/" />
-    <meta property="og:image" content="https://www.offlineobjects.space/press-kit/yi-cheung/01-fungal-monstrosities.jpg" />
-    <meta property="og:image:alt" content="Fungal Monstrosities — Offline Objects" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Offline Objects" />
-    <meta name="twitter:description" content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024." />
-    <meta name="twitter:image" content="https://www.offlineobjects.space/press-kit/yi-cheung/01-fungal-monstrosities.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,56 +23,65 @@
     <header class="site-header">
       <a class="wordmark" href="/">offline objects</a>
             <nav class="site-nav" aria-label="Primary">
-        <a href="/books-community/" data-text="books">books</a>
+        <a href="/books-community/" aria-current="page" data-text="books">books</a>
         <a href="/community/" data-text="community">community</a>
         <a href="/about/" data-text="about">about</a>
         <a href="/contact/" data-text="contact us">contact us</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-label="Offline Objects">
-        <div class="aura" data-aura aria-hidden="true">
+    <main>
+      <section class="page-hero interview-hero" aria-label="Books">
+        <div class="page-aura" data-aura aria-hidden="true">
           <span class="blob blob-gold"></span>
           <span class="blob blob-peach"></span>
           <span class="blob blob-rose"></span>
           <span class="blob blob-lilac"></span>
           <span class="blob blob-blue"></span>
         </div>
-
-        <div class="hero-copy">
-          <h1 class="brand">
-            <span class="brand-line">offline objects</span>
-          </h1>
+        <div class="page-hero-copy">
+          <h1>books</h1>
           <p class="lede">
-            Curator led emerging Art, Design, and Architecture.
-            Formed in Los Angeles 2024.
-          </p>
-          <p class="cta-row">
-            <a class="cta" href="/books-community/" data-text="books & community">Books &amp; community</a>
-            <a class="cta cta-secondary" href="#updates" data-text="sign up for updates">Sign up for updates</a>
+            Current and upcoming books
           </p>
         </div>
       </section>
 
-      <section class="notify home-updates" id="updates" aria-label="Sign up for updates">
-        <div class="notify-inner">
-          <h2>Sign up for updates</h2>
-          <p>Occasional notes on books, community, and what’s next.</p>
-          <form class="notify-form" data-notify-form action="#" method="post">
-            <label class="sr-only" for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="you@example.com"
-              required
-            />
-            <button type="submit">Subscribe</button>
-          </form>
-          <p class="form-note" data-note hidden></p>
-        </div>
+      <section class="page-content reveal-section">
+        <ul class="upcoming-list">
+          <li class="upcoming-item">
+            <p class="eyebrow">book one</p>
+            <h2><a href="/book-sensoria/">Sensoria</a></h2>
+            <p class="upcoming-status">In Stock</p>
+            <p class="upcoming-body">
+              The works gathered in this volume share a premise: that the
+              painting process can operate on the full range of human
+              perception, not vision alone. Hyun Sun Jo and Denis Geary Lopez
+              are each activating the body's entire repertoire of sense and
+              feeling in their artistic process, the integrated system through
+              which a living being receives and processes the world.
+            </p>
+            <p class="entry-link">
+              <a class="cta" href="/book-sensoria/" data-text="view book">View book</a>
+            </p>
+          </li>
+          <li class="upcoming-item">
+            <p class="eyebrow">book two</p>
+            <h2><a href="/book-two/">Sentient Environment</a></h2>
+            <p class="upcoming-status">Coming soon</p>
+            <p class="upcoming-body">
+              A second volume is forming with curator Stephanie Ibarra. Title and details to be announced. Please RSVP to reserve your copy
+            </p>
+            <p class="entry-link">
+              <a class="cta" href="/book-two/" data-text="view book">View book</a>
+            </p>
+          </li>
+        </ul>
+
+
+        <p class="cta-row passage-cta">
+          <a class="cta" href="/contact/" data-text="get in touch">Get in touch</a>
+        </p>
       </section>
     </main>
 
@@ -104,7 +101,6 @@
       <p>© <span data-year></span> Offline Objects</p>
     </footer>
 
-    <script src="/form-config.js?v=4"></script>
     <script src="/script.js?v=share8"></script>
   </body>
 </html>

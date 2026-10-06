@@ -3,23 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Offline Objects</title>
+    <title>Contact Us — Offline Objects</title>
     <meta
       name="description"
-      content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024."
+      content="Contact Offline Objects — reach the team for press, partnerships, and questions about Sensoria."
     />
-    <link rel="canonical" href="https://www.offlineobjects.space/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Offline Objects" />
-    <meta property="og:title" content="Offline Objects" />
-    <meta property="og:description" content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024." />
-    <meta property="og:url" content="https://www.offlineobjects.space/" />
-    <meta property="og:image" content="https://www.offlineobjects.space/press-kit/yi-cheung/01-fungal-monstrosities.jpg" />
-    <meta property="og:image:alt" content="Fungal Monstrosities — Offline Objects" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Offline Objects" />
-    <meta name="twitter:description" content="Offline Objects — curator led emerging Art, Design, and Architecture. Formed in Los Angeles 2024." />
-    <meta name="twitter:image" content="https://www.offlineobjects.space/press-kit/yi-cheung/01-fungal-monstrosities.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,52 +26,69 @@
         <a href="/books-community/" data-text="books">books</a>
         <a href="/community/" data-text="community">community</a>
         <a href="/about/" data-text="about">about</a>
-        <a href="/contact/" data-text="contact us">contact us</a>
+        <a href="/contact/" aria-current="page" data-text="contact us">contact us</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-label="Offline Objects">
-        <div class="aura" data-aura aria-hidden="true">
+    <main>
+      <section class="page-hero" aria-label="Contact">
+        <div class="page-aura" data-aura aria-hidden="true">
           <span class="blob blob-gold"></span>
           <span class="blob blob-peach"></span>
           <span class="blob blob-rose"></span>
           <span class="blob blob-lilac"></span>
           <span class="blob blob-blue"></span>
         </div>
-
-        <div class="hero-copy">
-          <h1 class="brand">
-            <span class="brand-line">offline objects</span>
-          </h1>
-          <p class="lede">
-            Curator led emerging Art, Design, and Architecture.
-            Formed in Los Angeles 2024.
-          </p>
-          <p class="cta-row">
-            <a class="cta" href="/books-community/" data-text="books & community">Books &amp; community</a>
-            <a class="cta cta-secondary" href="#updates" data-text="sign up for updates">Sign up for updates</a>
-          </p>
+        <div class="page-hero-copy">
+          <p class="eyebrow">contact us</p>
+          <h1>Say hello.</h1>
         </div>
       </section>
 
-      <section class="notify home-updates" id="updates" aria-label="Sign up for updates">
-        <div class="notify-inner">
-          <h2>Sign up for updates</h2>
-          <p>Occasional notes on books, community, and what’s next.</p>
-          <form class="notify-form" data-notify-form action="#" method="post">
-            <label class="sr-only" for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="you@example.com"
-              required
-            />
-            <button type="submit">Subscribe</button>
+      <section class="page-content reveal-section">
+        <div class="contact-layout">
+          <div class="prose">
+            <h2>Direct line</h2>
+            <ul class="contact-list">
+              <li>
+                <span>Email</span>
+                <a href="mailto:dearofflineobjects@gmail.com">dearofflineobjects@gmail.com</a>
+              </li>
+            </ul>
+          </div>
+
+          <form class="stack-form" data-contact-form action="#" method="post">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="contact-email">Email</label>
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic">
+                <option value="general">General</option>
+                <option value="press">Press</option>
+                <option value="partnership">Partnership</option>
+                <option value="rights">Rights</option>
+                <option value="community">Community</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="text-submit">Send message</button>
+            <p class="form-note" data-contact-note hidden></p>
           </form>
-          <p class="form-note" data-note hidden></p>
         </div>
       </section>
     </main>

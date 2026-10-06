@@ -404,13 +404,7 @@
 
 
   document.querySelectorAll("[data-share-page]").forEach((button) => {
-    const label = () => button.getAttribute("data-text") || "share article";
-    const setLabel = (text) => {
-      button.setAttribute("data-text", text);
-      button.textContent = text;
-    };
-
-    button.addEventListener("click", async () => {
+    const getShareData = () => {
       const shareUrl =
         document.querySelector('link[rel="canonical"]')?.href ||
         window.location.href;
@@ -418,28 +412,155 @@
       const shareText =
         document.querySelector('meta[name="description"]')?.content ||
         shareTitle;
+      const shareImage =
+        document.querySelector('meta[property="og:image"]')?.content ||
+        document.querySelector(".interview-figure img")?.src ||
+        "";
+      return { shareUrl, shareTitle, shareText, shareImage };
+    };
 
-      try {
-        if (navigator.share) {
-          await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-          return;
-        }
-      } catch (err) {
-        if (err && err.name === "AbortError") return;
-      }
+    const wrap = document.createElement("div");
+    wrap.className = "share-menu";
+    button.parentNode.insertBefore(wrap, button);
+    wrap.appendChild(button);
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-haspopup", "menu");
+    button.removeAttribute("data-text");
 
+    const panel = document.createElement("div");
+    panel.className = "share-menu-panel";
+    panel.hidden = true;
+    panel.setAttribute("role", "menu");
+    panel.innerHTML = `
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="text">Text</button>
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="instagram">Instagram</button>
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="facebook">Facebook</button>
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="pinterest">Pinterest</button>
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="linkedin">LinkedIn</button>
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="x">X</button>
+      <p class="share-menu-note" data-share-note hidden></p>
+    `;
+    wrap.appendChild(panel);
+
+    const note = panel.querySelector("[data-share-note]");
+    let noteTimer = 0;
+
+    const showNote = (message) => {
+      if (!note) return;
+      note.hidden = false;
+      note.textContent = message;
+      window.clearTimeout(noteTimer);
+      noteTimer = window.setTimeout(() => {
+        note.hidden = true;
+        note.textContent = "";
+      }, 2600);
+    };
+
+    const closeMenu = () => {
+      panel.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      wrap.classList.remove("is-open");
+    };
+
+    const openMenu = () => {
+      panel.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      wrap.classList.add("is-open");
+    };
+
+    const copyLink = async (shareUrl) => {
       try {
         await navigator.clipboard.writeText(shareUrl);
-        const previous = label();
-        setLabel("link copied");
-        button.classList.add("is-shared");
-        window.setTimeout(() => {
-          setLabel(previous);
-          button.classList.remove("is-shared");
-        }, 1800);
+        return true;
       } catch (err) {
         window.prompt("Copy this link:", shareUrl);
+        return false;
       }
+    };
+
+    const openShareWindow = (url) => {
+      window.open(url, "_blank", "noopener,noreferrer,width=640,height=720");
+    };
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (panel.hidden) openMenu();
+      else closeMenu();
+    });
+
+    panel.addEventListener("click", (event) => event.stopPropagation());
+
+    panel.querySelectorAll("[data-share-to]").forEach((item) => {
+      item.addEventListener("click", async () => {
+        const { shareUrl, shareTitle, shareText, shareImage } = getShareData();
+        const channel = item.getAttribute("data-share-to");
+        const encodedUrl = encodeURIComponent(shareUrl);
+        const encodedTitle = encodeURIComponent(shareTitle);
+        const encodedText = encodeURIComponent(shareText);
+        const encodedImage = encodeURIComponent(shareImage);
+        const message = `${shareTitle}\n${shareUrl}`;
+
+        if (channel === "instagram") {
+          const copied = await copyLink(shareUrl);
+          showNote(
+            copied
+              ? "Link copied — paste it in Instagram"
+              : "Copy the link, then paste it in Instagram"
+          );
+          window.setTimeout(() => {
+            window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+          }, 350);
+          return;
+        }
+
+        if (channel === "x") {
+          openShareWindow(
+            `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
+          );
+          closeMenu();
+          return;
+        }
+
+        if (channel === "facebook") {
+          openShareWindow(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+          );
+          closeMenu();
+          return;
+        }
+
+        if (channel === "pinterest") {
+          const pinUrl =
+            `https://www.pinterest.com/pin/create/button/?url=${encodedUrl}` +
+            (shareImage ? `&media=${encodedImage}` : "") +
+            `&description=${encodedText || encodedTitle}`;
+          openShareWindow(pinUrl);
+          closeMenu();
+          return;
+        }
+
+        if (channel === "linkedin") {
+          openShareWindow(
+            `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+          );
+          closeMenu();
+          return;
+        }
+
+        if (channel === "text") {
+          const smsBody = encodeURIComponent(message);
+          window.location.href = `sms:?&body=${smsBody}`;
+          closeMenu();
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!wrap.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
     });
   });
 

@@ -317,6 +317,13 @@ main,
 }
 
 
+.share-menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .share-button {
   appearance: none;
   display: inline-flex;
@@ -341,15 +348,62 @@ main,
 }
 
 .share-button:hover,
-.share-button:focus-visible {
+.share-button:focus-visible,
+.share-menu.is-open .share-button {
   background: transparent;
   color: var(--ink);
 }
 
-.share-button.is-shared {
+.share-menu-panel {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.65rem);
+  z-index: 30;
+  display: grid;
+  gap: 0.15rem;
+  min-width: 11.5rem;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  background: rgba(242, 241, 239, 0.98);
+  box-shadow: 0 10px 28px rgba(17, 17, 17, 0.08);
+  transform: translateX(-50%);
+}
+
+.share-menu-item {
+  appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  border: 0;
   background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-align: left;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.share-menu-item:hover,
+.share-menu-item:focus-visible {
   color: var(--ink);
-  border-color: var(--ink);
+  background: rgba(17, 17, 17, 0.04);
+}
+
+.share-menu-note {
+  margin: 0.35rem 0 0;
+  padding: 0.45rem 0.55rem 0.2rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: left;
+  text-transform: none;
 }
 
 .cta-secondary {

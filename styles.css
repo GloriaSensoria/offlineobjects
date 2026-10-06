@@ -364,8 +364,9 @@ main,
 }
 
 .passage .body em {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-style: italic;
+  font-weight: 400;
   color: var(--ink);
 }
 
@@ -574,8 +575,17 @@ main,
 }
 
 .prose em {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.prose strong em,
+.prose em strong {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
   color: var(--ink);
 }
 
@@ -596,7 +606,7 @@ main,
 
 .interview-hero {
   min-height: auto;
-  padding: 7.5rem 1.5rem 1.75rem;
+  padding: 7.5rem 1.5rem 0.75rem;
 }
 
 .interview-hero .eyebrow,
@@ -607,8 +617,12 @@ main,
   animation: none;
 }
 
+.interview-hero .lede {
+  margin-bottom: 0;
+}
+
 .interview-content {
-  padding-top: 1.5rem;
+  padding-top: 0.35rem;
 }
 
 .interview-content.reveal {
@@ -687,8 +701,9 @@ main,
 
 .interview-prose blockquote p {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-style: italic;
+  font-weight: 400;
   color: var(--ink);
   font-size: 1.12rem;
   line-height: 1.65;

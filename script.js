@@ -223,4 +223,183 @@
       { once: true }
     );
   }
+
+  const cookieKey = "oo-cookie-consent-v2";
+  const defaultConsent = {
+    necessary: true,
+    analytics: false,
+    decided: false,
+  };
+
+  const readConsent = () => {
+    try {
+      const raw = window.localStorage.getItem(cookieKey);
+      if (!raw) return { ...defaultConsent };
+      // Migrate previous simple "1" flag to accept-all
+      if (raw === "1") {
+        return { necessary: true, analytics: true, decided: true };
+      }
+      const parsed = JSON.parse(raw);
+      return {
+        necessary: true,
+        analytics: Boolean(parsed.analytics),
+        decided: Boolean(parsed.decided),
+      };
+    } catch (err) {
+      return { ...defaultConsent };
+    }
+  };
+
+  const writeConsent = (consent) => {
+    const next = {
+      necessary: true,
+      analytics: Boolean(consent.analytics),
+      decided: true,
+    };
+    window.localStorage.setItem(cookieKey, JSON.stringify(next));
+    window.OfflineObjectsConsent = next;
+    window.dispatchEvent(
+      new CustomEvent("oo:consentchange", { detail: next })
+    );
+    return next;
+  };
+
+  const activateConsentScripts = (category) => {
+    document
+      .querySelectorAll(`script[type="text/plain"][data-consent="${category}"]`)
+      .forEach((blocked) => {
+        const active = document.createElement("script");
+        Array.from(blocked.attributes).forEach((attr) => {
+          if (attr.name === "type" || attr.name === "data-consent") return;
+          active.setAttribute(attr.name, attr.value);
+        });
+        active.type = "text/javascript";
+        if (blocked.textContent) active.textContent = blocked.textContent;
+        blocked.replaceWith(active);
+      });
+  };
+
+  const loadGoogleAnalytics = (measurementId) => {
+    if (!measurementId || window.__ooAnalyticsLoaded) return;
+    window.__ooAnalyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", measurementId, { anonymize_ip: true });
+
+    const ga = document.createElement("script");
+    ga.async = true;
+    ga.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
+      measurementId
+    )}`;
+    document.head.appendChild(ga);
+  };
+
+  const applyConsent = (consent) => {
+    window.OfflineObjectsConsent = consent;
+    if (!consent.analytics) return;
+    activateConsentScripts("analytics");
+    const measurementId =
+      (window.OFFLINE_OBJECTS_FORMS &&
+        window.OFFLINE_OBJECTS_FORMS.analyticsId) ||
+      window.OFFLINE_OBJECTS_ANALYTICS_ID ||
+      "";
+    if (measurementId) loadGoogleAnalytics(String(measurementId));
+  };
+
+  let consent = readConsent();
+  applyConsent(consent);
+
+  const showBanner = !consent.decided;
+  if (showBanner) {
+    const bar = document.createElement("div");
+    bar.className = "cookie-bar";
+    bar.setAttribute("role", "dialog");
+    bar.setAttribute("aria-modal", "false");
+    bar.setAttribute("aria-label", "Cookie consent");
+    bar.innerHTML = `
+      <div class="cookie-bar-panel">
+        <h2 class="cookie-bar-title">Cookies</h2>
+        <p class="cookie-bar-copy">
+          We use necessary cookies to run the site. Optional analytics cookies help us
+          understand usage and only load if you allow them.
+        </p>
+        <div class="cookie-prefs" data-cookie-prefs hidden>
+          <label class="cookie-pref">
+            <span>
+              <strong>Necessary</strong>
+              <span>Required for basic site function. Always on.</span>
+            </span>
+            <span class="cookie-pref-toggle">
+              <input type="checkbox" checked disabled aria-label="Necessary cookies always on" />
+              <i aria-hidden="true"></i>
+            </span>
+          </label>
+          <label class="cookie-pref">
+            <span>
+              <strong>Analytics</strong>
+              <span>Helps us measure visits. Includes services like Google Analytics when configured.</span>
+            </span>
+            <span class="cookie-pref-toggle">
+              <input type="checkbox" data-cookie-analytics aria-label="Allow analytics cookies" />
+              <i aria-hidden="true"></i>
+            </span>
+          </label>
+        </div>
+        <div class="cookie-bar-actions">
+          <button type="button" class="cookie-btn" data-cookie-accept-all>Accept All</button>
+          <button type="button" class="cookie-btn cookie-btn-muted" data-cookie-reject-all>Reject All</button>
+          <button type="button" class="cookie-btn cookie-btn-muted" data-cookie-manage>Manage Preferences</button>
+          <button type="button" class="cookie-btn" data-cookie-save hidden>Save Preferences</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(bar);
+
+    const prefs = bar.querySelector("[data-cookie-prefs]");
+    const analyticsToggle = bar.querySelector("[data-cookie-analytics]");
+    const manageBtn = bar.querySelector("[data-cookie-manage]");
+    const saveBtn = bar.querySelector("[data-cookie-save]");
+
+    const closeBanner = () => {
+      bar.classList.remove("is-visible");
+      bar.classList.add("is-leaving");
+      window.setTimeout(() => bar.remove(), 450);
+    };
+
+    const decide = (analytics) => {
+      consent = writeConsent({ analytics });
+      applyConsent(consent);
+      closeBanner();
+    };
+
+    bar.querySelector("[data-cookie-accept-all]")?.addEventListener("click", () => {
+      decide(true);
+    });
+    bar.querySelector("[data-cookie-reject-all]")?.addEventListener("click", () => {
+      decide(false);
+    });
+    manageBtn?.addEventListener("click", () => {
+      const open = prefs?.hasAttribute("hidden") ?? true;
+      if (!prefs) return;
+      if (open) {
+        prefs.hidden = false;
+        prefs.classList.add("is-open");
+        manageBtn.hidden = true;
+        if (saveBtn) saveBtn.hidden = false;
+        if (analyticsToggle) analyticsToggle.checked = Boolean(consent.analytics);
+      }
+    });
+    saveBtn?.addEventListener("click", () => {
+      decide(Boolean(analyticsToggle?.checked));
+    });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => bar.classList.add("is-visible"));
+    });
+  }
+
+
 })();

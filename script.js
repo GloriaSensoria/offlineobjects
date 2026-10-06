@@ -427,24 +427,10 @@
     button.setAttribute("aria-haspopup", "menu");
     button.removeAttribute("data-text");
 
-    const panel = document.createElement("div");
-    panel.className = "share-menu-panel";
-    panel.hidden = true;
-    panel.setAttribute("role", "menu");
-    panel.innerHTML = `
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="copy">Copy link</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="text">Text</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="instagram">Instagram</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="facebook">Facebook</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="pinterest">Pinterest</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="linkedin">LinkedIn</button>
-      <button type="button" class="share-menu-item" role="menuitem" data-share-to="x">X</button>
-      <p class="share-menu-note" data-share-note hidden></p>
-    `;
-    wrap.appendChild(panel);
-
-    const note = panel.querySelector("[data-share-note]");
+    let panel = null;
+    let note = null;
     let noteTimer = 0;
+    let outsideBound = false;
 
     const showNote = (message) => {
       if (!note) return;
@@ -458,15 +444,10 @@
     };
 
     const closeMenu = () => {
+      if (!panel) return;
       panel.hidden = true;
       button.setAttribute("aria-expanded", "false");
       wrap.classList.remove("is-open");
-    };
-
-    const openMenu = () => {
-      panel.hidden = false;
-      button.setAttribute("aria-expanded", "true");
-      wrap.classList.add("is-open");
     };
 
     const copyLink = async (shareUrl) => {
@@ -483,91 +464,122 @@
       window.open(url, "_blank", "noopener,noreferrer,width=640,height=720");
     };
 
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-      if (panel.hidden) openMenu();
-      else closeMenu();
-    });
+    const ensureMenu = () => {
+      if (panel) return;
 
-    panel.addEventListener("click", (event) => event.stopPropagation());
+      panel = document.createElement("div");
+      panel.className = "share-menu-panel";
+      panel.hidden = true;
+      panel.setAttribute("role", "menu");
+      panel.innerHTML = `
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="copy">Copy link</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="text">Text</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="instagram">Instagram</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="facebook">Facebook</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="pinterest">Pinterest</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="linkedin">LinkedIn</button>
+        <button type="button" class="share-menu-item" role="menuitem" data-share-to="x">X</button>
+        <p class="share-menu-note" data-share-note hidden></p>
+      `;
+      wrap.appendChild(panel);
+      note = panel.querySelector("[data-share-note]");
 
-    panel.querySelectorAll("[data-share-to]").forEach((item) => {
-      item.addEventListener("click", async () => {
-        const { shareUrl, shareTitle, shareText, shareImage } = getShareData();
-        const channel = item.getAttribute("data-share-to");
-        const encodedUrl = encodeURIComponent(shareUrl);
-        const encodedTitle = encodeURIComponent(shareTitle);
-        const encodedText = encodeURIComponent(shareText);
-        const encodedImage = encodeURIComponent(shareImage);
-        const message = `${shareTitle}\n${shareUrl}`;
+      panel.addEventListener("click", (event) => event.stopPropagation());
 
-        if (channel === "copy") {
-          const copied = await copyLink(shareUrl);
-          showNote(copied ? "Link copied" : "Couldn’t copy — try again");
-          return;
-        }
+      panel.querySelectorAll("[data-share-to]").forEach((item) => {
+        item.addEventListener("click", async () => {
+          const { shareUrl, shareTitle, shareText, shareImage } = getShareData();
+          const channel = item.getAttribute("data-share-to");
+          const encodedUrl = encodeURIComponent(shareUrl);
+          const encodedTitle = encodeURIComponent(shareTitle);
+          const encodedText = encodeURIComponent(shareText);
+          const encodedImage = encodeURIComponent(shareImage);
+          const message = `${shareTitle}\n${shareUrl}`;
 
-        if (channel === "instagram") {
-          const copied = await copyLink(shareUrl);
-          showNote(
-            copied
-              ? "Link copied — paste it in Instagram"
-              : "Copy the link, then paste it in Instagram"
-          );
-          window.setTimeout(() => {
-            window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
-          }, 350);
-          return;
-        }
+          if (channel === "copy") {
+            const copied = await copyLink(shareUrl);
+            showNote(copied ? "Link copied" : "Couldn’t copy — try again");
+            return;
+          }
 
-        if (channel === "x") {
-          openShareWindow(
-            `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
-          );
-          closeMenu();
-          return;
-        }
+          if (channel === "instagram") {
+            const copied = await copyLink(shareUrl);
+            showNote(
+              copied
+                ? "Link copied — paste it in Instagram"
+                : "Copy the link, then paste it in Instagram"
+            );
+            window.setTimeout(() => {
+              window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+            }, 350);
+            return;
+          }
 
-        if (channel === "facebook") {
-          openShareWindow(
-            `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
-          );
-          closeMenu();
-          return;
-        }
+          if (channel === "x") {
+            openShareWindow(
+              `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
+            );
+            closeMenu();
+            return;
+          }
 
-        if (channel === "pinterest") {
-          const pinUrl =
-            `https://www.pinterest.com/pin/create/button/?url=${encodedUrl}` +
-            (shareImage ? `&media=${encodedImage}` : "") +
-            `&description=${encodedText || encodedTitle}`;
-          openShareWindow(pinUrl);
-          closeMenu();
-          return;
-        }
+          if (channel === "facebook") {
+            openShareWindow(
+              `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+            );
+            closeMenu();
+            return;
+          }
 
-        if (channel === "linkedin") {
-          openShareWindow(
-            `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
-          );
-          closeMenu();
-          return;
-        }
+          if (channel === "pinterest") {
+            const pinUrl =
+              `https://www.pinterest.com/pin/create/button/?url=${encodedUrl}` +
+              (shareImage ? `&media=${encodedImage}` : "") +
+              `&description=${encodedText || encodedTitle}`;
+            openShareWindow(pinUrl);
+            closeMenu();
+            return;
+          }
 
-        if (channel === "text") {
-          const smsBody = encodeURIComponent(message);
-          window.location.href = `sms:?&body=${smsBody}`;
-          closeMenu();
-        }
+          if (channel === "linkedin") {
+            openShareWindow(
+              `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+            );
+            closeMenu();
+            return;
+          }
+
+          if (channel === "text") {
+            const smsBody = encodeURIComponent(message);
+            window.location.href = `sms:?&body=${smsBody}`;
+            closeMenu();
+          }
+        });
       });
-    });
 
-    document.addEventListener("click", (event) => {
-      if (!wrap.contains(event.target)) closeMenu();
-    });
+      if (!outsideBound) {
+        outsideBound = true;
+        document.addEventListener("click", (event) => {
+          if (!wrap.contains(event.target)) closeMenu();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMenu();
+        });
+      }
+    };
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
+    const openMenu = () => {
+      ensureMenu();
+      panel.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      wrap.classList.add("is-open");
+    };
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (wrap.classList.contains("is-open")) closeMenu();
+      else openMenu();
     });
   });
 

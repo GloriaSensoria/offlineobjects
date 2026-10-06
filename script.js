@@ -402,4 +402,46 @@
   }
 
 
+
+  document.querySelectorAll("[data-share-page]").forEach((button) => {
+    const label = () => button.getAttribute("data-text") || "share article";
+    const setLabel = (text) => {
+      button.setAttribute("data-text", text);
+      button.textContent = text;
+    };
+
+    button.addEventListener("click", async () => {
+      const shareUrl =
+        document.querySelector('link[rel="canonical"]')?.href ||
+        window.location.href;
+      const shareTitle = document.title;
+      const shareText =
+        document.querySelector('meta[name="description"]')?.content ||
+        shareTitle;
+
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+          return;
+        }
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        const previous = label();
+        setLabel("link copied");
+        button.classList.add("is-shared");
+        window.setTimeout(() => {
+          setLabel(previous);
+          button.classList.remove("is-shared");
+        }, 1800);
+      } catch (err) {
+        window.prompt("Copy this link:", shareUrl);
+      }
+    });
+  });
+
+
 })();

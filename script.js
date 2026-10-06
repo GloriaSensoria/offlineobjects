@@ -572,6 +572,39 @@
 
           if (channel === "text") {
             const smsBody = encodeURIComponent(message);
+            const canPickContacts =
+              "contacts" in navigator &&
+              typeof navigator.contacts?.select === "function";
+
+            if (canPickContacts) {
+              try {
+                const contacts = await navigator.contacts.select(
+                  ["tel", "name"],
+                  { multiple: true }
+                );
+                const numbers = [
+                  ...new Set(
+                    contacts
+                      .flatMap((contact) => contact.tel || [])
+                      .map((tel) => String(tel).replace(/[^\d+]/g, ""))
+                      .filter(Boolean)
+                  ),
+                ];
+                if (numbers.length) {
+                  window.location.href = `sms:${numbers.join(",")}?&body=${smsBody}`;
+                  closeMenu();
+                  return;
+                }
+              } catch (err) {
+                // User cancelled the contact picker — keep the menu open.
+                if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) {
+                  return;
+                }
+              }
+            }
+
+            // Opens the native Messages app, where recent contacts appear
+            // when choosing recipients. Websites cannot read that list.
             window.location.href = `sms:?&body=${smsBody}`;
             closeMenu();
           }

@@ -432,6 +432,7 @@
     panel.hidden = true;
     panel.setAttribute("role", "menu");
     panel.innerHTML = `
+      <button type="button" class="share-menu-item" role="menuitem" data-share-to="copy">Copy link</button>
       <button type="button" class="share-menu-item" role="menuitem" data-share-to="text">Text</button>
       <button type="button" class="share-menu-item" role="menuitem" data-share-to="instagram">Instagram</button>
       <button type="button" class="share-menu-item" role="menuitem" data-share-to="facebook">Facebook</button>
@@ -499,6 +500,12 @@
         const encodedText = encodeURIComponent(shareText);
         const encodedImage = encodeURIComponent(shareImage);
         const message = `${shareTitle}\n${shareUrl}`;
+
+        if (channel === "copy") {
+          const copied = await copyLink(shareUrl);
+          showNote(copied ? "Link copied" : "Couldn’t copy — try again");
+          return;
+        }
 
         if (channel === "instagram") {
           const copied = await copyLink(shareUrl);

@@ -401,6 +401,13 @@ main,
   background: rgba(17, 17, 17, 0.04);
 }
 
+.share-menu-item.is-copied,
+.share-menu-item.is-copied:hover,
+.share-menu-item.is-copied:focus-visible {
+  color: var(--ink);
+  background: #d9f0df;
+}
+
 .share-menu-note {
   margin: 0.35rem 0 0;
   padding: 0.45rem 0.55rem 0.2rem;

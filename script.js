@@ -430,6 +430,8 @@
     let panel = null;
     let note = null;
     let noteTimer = 0;
+    let copyTimer = 0;
+    let copyButton = null;
     let outsideBound = false;
 
     const showNote = (message) => {
@@ -443,11 +445,29 @@
       }, 2600);
     };
 
+    const resetCopyButton = () => {
+      if (!copyButton) return;
+      window.clearTimeout(copyTimer);
+      copyButton.textContent = "Copy link";
+      copyButton.classList.remove("is-copied");
+    };
+
+    const markLinkCopied = (success) => {
+      if (!copyButton) return;
+      window.clearTimeout(copyTimer);
+      copyButton.textContent = success ? "Link copied" : "Couldn’t copy";
+      copyButton.classList.toggle("is-copied", success);
+      copyTimer = window.setTimeout(() => {
+        resetCopyButton();
+      }, 2200);
+    };
+
     const closeMenu = () => {
       if (!panel) return;
       panel.hidden = true;
       button.setAttribute("aria-expanded", "false");
       wrap.classList.remove("is-open");
+      resetCopyButton();
     };
 
     const copyLink = async (shareUrl) => {
@@ -483,6 +503,7 @@
       `;
       wrap.appendChild(panel);
       note = panel.querySelector("[data-share-note]");
+      copyButton = panel.querySelector('[data-share-to="copy"]');
 
       panel.addEventListener("click", (event) => event.stopPropagation());
 
@@ -498,7 +519,7 @@
 
           if (channel === "copy") {
             const copied = await copyLink(shareUrl);
-            showNote(copied ? "Link copied" : "Couldn’t copy — try again");
+            markLinkCopied(copied);
             return;
           }
 

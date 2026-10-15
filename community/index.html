@@ -26,7 +26,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css?v=share7" />
+    <link rel="stylesheet" href="/styles.css?v=community-pills4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -34,7 +34,7 @@
 
     <header class="site-header">
       <a class="wordmark" href="/">offline objects</a>
-            <nav class="site-nav" aria-label="Primary">
+      <nav class="site-nav" aria-label="Primary">
         <a href="/books-community/" data-text="books">books</a>
         <a href="/community/" aria-current="page" data-text="community">community</a>
         <a href="/about/" data-text="about">about</a>
@@ -56,46 +56,114 @@
         </div>
       </section>
 
-      <section class="page-content community-interviews reveal-section">
-        <aside class="community-aside" aria-label="Interviews">
-          <p class="eyebrow">Interviews</p>
-          <ul class="community-schedule">
-            <li>
-              <strong><a href="/interview-hyun-sun-jo/">Interview with Hyun Sun Jo</a></strong>
-              <span>Seoul/Tokyo</span>
-            </li>
-            <li>
-              <strong><a href="/interview-yi-cheung/">Interview with Yi Cheung</a></strong>
-              <span>Hong Kong/Los Angeles</span>
-            </li>
-            <li>
-              <strong><a href="/interview-bruno-marsino/">Interview with Bruno Marsino</a></strong>
-              <span>Santiago / Los Angeles</span>
-            </li>
-            <li>
-              <strong><a href="/interview-diane-benoit-du-rey/">Interview with Diane Benoit du Rey</a></strong>
-              <span>Paris</span>
-            </li>
-          </ul>
-        </aside>
-      </section>
+      <section class="page-content community-feed reveal-section" aria-label="Community stories">
+        <div class="community-filters" role="group" aria-label="Filter community stories" data-community-filters>
+          <button type="button" class="community-pill is-on" data-filter="interview" aria-pressed="true">
+            <span class="community-pill-label">interviews</span>
+            <span class="community-pill-x" aria-hidden="true">×</span>
+          </button>
+          <button type="button" class="community-pill is-on" data-filter="exhibition" aria-pressed="true">
+            <span class="community-pill-label">exhibitions</span>
+            <span class="community-pill-x" aria-hidden="true">×</span>
+          </button>
+          <button type="button" class="community-pill is-on" data-filter="event" aria-pressed="true">
+            <span class="community-pill-label">events</span>
+            <span class="community-pill-x" aria-hidden="true">×</span>
+          </button>
+        </div>
+        <p class="community-filter-empty" data-community-empty hidden>Nothing in this category yet.</p>
+        <div class="community-grid" data-community-grid>
+          <a class="community-tile" href="/interview-hyun-sun-jo/" data-type="interview">
+            <div class="community-tile-media">
+              <img
+                src="/press-kit/hyun-sun-jo/pale-deep-exhibition.jpg"
+                alt="Hyun Sun Jo solo exhibition Pale Deep at Pageroom8, Seoul"
+                width="1024"
+                height="663"
+                loading="lazy"
+              />
+              <span class="community-tile-tag">interview</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Pale Deep: A conversation with Hyun Sun Jo</h2>
+              <p>Seoul/Tokyo</p>
+            </div>
+          </a>
 
-      <section class="page-content community-exhibitions reveal-section">
-        <aside class="community-aside" aria-label="Exhibitions">
-          <p class="eyebrow">Exhibitions</p>
-          <ul class="community-schedule">
-            <li>
-              <strong><a href="/exhibition-joy-in-the-anthropocene/">Joy in the Anthropocene</a></strong>
-              <span>Los Angeles</span>
-            </li>
-            <li>
-              <strong><a href="/exhibition-twoism/">Twoism</a></strong>
-              <span>Montreal</span>
-            </li>
-          </ul>
-        </aside>
-      </section>
+          <a class="community-tile" href="/interview-yi-cheung/" data-type="interview">
+            <div class="community-tile-media">
+              <img
+                src="/press-kit/yi-cheung/01-fungal-monstrosities.jpg"
+                alt="Fungal Monstrosities by Yi Cheung"
+                width="1024"
+                height="682"
+                loading="lazy"
+              />
+              <span class="community-tile-tag">interview</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Earthly Intimacy: A conversation with Yi Cheung</h2>
+              <p>Hong Kong/Los Angeles</p>
+            </div>
+          </a>
 
+          <a class="community-tile" href="/interview-bruno-marsino/" data-type="interview">
+            <div class="community-tile-media is-placeholder">
+              <span class="community-tile-soon">coming soon</span>
+              <span class="community-tile-tag">interview</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Interview</h2>
+              <p>Bruno Marsino · Santiago / Los Angeles</p>
+            </div>
+          </a>
+
+          <a class="community-tile" href="/interview-diane-benoit-du-rey/" data-type="interview">
+            <div class="community-tile-media is-placeholder">
+              <span class="community-tile-soon">coming soon</span>
+              <span class="community-tile-tag">interview</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Interview</h2>
+              <p>Diane Benoit du Rey · Paris</p>
+            </div>
+          </a>
+
+          <a class="community-tile" href="/exhibition-joy-in-the-anthropocene/" data-type="exhibition">
+            <div class="community-tile-media">
+              <img
+                src="/press-kit/exhibitions/joy-in-the-anthropocene.jpg"
+                alt="Joy in the Anthropocene exhibition"
+                width="1024"
+                height="768"
+                loading="lazy"
+              />
+              <span class="community-tile-tag">exhibition</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Joy in the Anthropocene</h2>
+              <p>Los Angeles</p>
+            </div>
+          </a>
+
+          <a class="community-tile" href="/exhibition-twoism/" data-type="exhibition">
+            <div class="community-tile-media">
+              <img
+                src="/press-kit/exhibitions/twoism-rodrigo.jpg"
+                alt="Artwork from Twoism exhibition"
+                width="1024"
+                height="818"
+                loading="lazy"
+              />
+              <span class="community-tile-tag">exhibition</span>
+            </div>
+            <div class="community-tile-copy">
+              <h2>Twoism</h2>
+              <p>Montreal</p>
+            </div>
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -114,6 +182,6 @@
       <p>© <span data-year></span> Offline Objects</p>
     </footer>
 
-    <script src="/script.js?v=share8"></script>
+    <script src="/script.js?v=community-pills1"></script>
   </body>
 </html>

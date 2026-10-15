@@ -638,4 +638,39 @@
   });
 
 
+
+  const communityFilters = document.querySelector("[data-community-filters]");
+  const communityGrid = document.querySelector("[data-community-grid]");
+  const communityEmpty = document.querySelector("[data-community-empty]");
+
+  if (communityFilters && communityGrid) {
+    const tiles = [...communityGrid.querySelectorAll(".community-tile[data-type]")];
+    const pills = [...communityFilters.querySelectorAll("[data-filter]")];
+
+    const applyFilters = () => {
+      const active = new Set(
+        pills
+          .filter((pill) => pill.classList.contains("is-on"))
+          .map((pill) => pill.getAttribute("data-filter"))
+      );
+      let visible = 0;
+      tiles.forEach((tile) => {
+        const match = active.has(tile.getAttribute("data-type"));
+        tile.classList.toggle("is-filtered-out", !match);
+        if (match) visible += 1;
+      });
+      if (communityEmpty) communityEmpty.hidden = visible > 0;
+    };
+
+    communityFilters.addEventListener("click", (event) => {
+      const pill = event.target.closest("[data-filter]");
+      if (!pill || !communityFilters.contains(pill)) return;
+      const turningOff = pill.classList.contains("is-on");
+      pill.classList.toggle("is-on", !turningOff);
+      pill.setAttribute("aria-pressed", turningOff ? "false" : "true");
+      applyFilters();
+    });
+  }
+
+
 })();

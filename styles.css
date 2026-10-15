@@ -1387,16 +1387,11 @@ main,
     filter 0.25s var(--ease);
 }
 
-.community-pill[data-filter="interview"] {
-  background: #f5dcc8;
-}
-
-.community-pill[data-filter="exhibition"] {
-  background: #f0cfd8;
-}
-
+.community-pill[data-filter="interview"],
+.community-pill[data-filter="exhibition"],
 .community-pill[data-filter="event"] {
-  background: #cfe8dc;
+  background: #ffffff;
+  border-color: var(--line);
 }
 
 .community-pill-label {
@@ -1419,7 +1414,7 @@ main,
 .community-pill.is-on:hover,
 .community-pill.is-on:focus-visible {
   outline: none;
-  filter: brightness(0.97);
+  background: #faf9f7;
 }
 
 .community-pill.is-on:hover .community-pill-x,
@@ -1430,7 +1425,8 @@ main,
 
 .community-pill:not(.is-on) {
   color: var(--ink-faint);
-  background: #e4e2df;
+  background: #f0eeeb;
+  border-color: #d4d1cc;
   opacity: 0.72;
 }
 

@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=share7" />
+    <link rel="stylesheet" href="/styles.css?v=books-instock-dot1" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -50,30 +50,47 @@
       <section class="page-content reveal-section">
         <ul class="upcoming-list">
           <li class="upcoming-item">
-            <p class="eyebrow">book one</p>
             <h2><a href="/book-sensoria/">Sensoria</a></h2>
-            <p class="upcoming-status">In Stock</p>
+            <p class="upcoming-status is-available">In Stock</p>
+            <div class="upcoming-cover-col">
+              <figure class="upcoming-cover">
+                <img
+                  src="/press-kit/sensoria/cover.png"
+                  alt="Sensoria book cover"
+                  width="750"
+                  height="954"
+                  loading="lazy"
+                />
+              </figure>
+              <div class="book-buy">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1U88s6E7fBdxAoZ8fabWtYpz"
+                  publishable-key="pk_live_51U1U5GE7fBdxAoZ8ym6yYsIjaZZ9f1Jwj6FW4AdKXcIOHG3zDL1ty1dpYzElaCoC4y2Cp602qpJlOujCBoWv4Z7S00iFSvfrEj"
+                >
+                </stripe-buy-button>
+                <noscript>
+                  <a class="cta" href="https://buy.stripe.com/28E8wPgb85LV64x3G348001">Buy Sensoria</a>
+                </noscript>
+              </div>
+            </div>
             <p class="upcoming-body">
               The works gathered in this volume share a premise: that the
               painting process can operate on the full range of human
               perception, not vision alone. Hyun Sun Jo and Denis Geary Lopez
-              are each activating the body's entire repertoire of sense and
-              feeling in their artistic process, the integrated system through
-              which a living being receives and processes the world.
+              are each activating the body's entire…
             </p>
             <p class="entry-link">
-              <a class="cta" href="/book-sensoria/" data-text="view book">View book</a>
+              <a class="cta" href="/book-sensoria/" data-text="learn more">Learn more</a>
             </p>
           </li>
           <li class="upcoming-item">
-            <p class="eyebrow">book two</p>
             <h2><a href="/book-two/">Sentient Environment</a></h2>
             <p class="upcoming-status">Coming soon</p>
             <p class="upcoming-body">
               A second volume is forming with curator Stephanie Ibarra. Title and details to be announced. Please RSVP to reserve your copy
             </p>
             <p class="entry-link">
-              <a class="cta" href="/book-two/" data-text="view book">View book</a>
+              <a class="cta" href="/book-two/" data-text="learn more">Learn more</a>
             </p>
           </li>
         </ul>
@@ -101,6 +118,7 @@
       <p>© <span data-year></span> Offline Objects</p>
     </footer>
 
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <script src="/script.js?v=share8"></script>
   </body>
 </html>

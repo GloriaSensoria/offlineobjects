@@ -1035,6 +1035,10 @@ main,
 }
 
 .entry-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.85rem 1.35rem;
   margin: 1.1rem 0 0 !important;
 }
 
@@ -1318,11 +1322,50 @@ main,
 }
 
 .upcoming-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   margin: 0.55rem 0 0.9rem;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: lowercase;
   color: var(--ink-faint);
+}
+
+.upcoming-status.is-available::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #3f9a5c;
+  box-shadow: 0 0 0 2px rgba(63, 154, 92, 0.18);
+  flex-shrink: 0;
+}
+
+.upcoming-cover-col {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  width: min(220px, 55vw);
+  margin: 0 0 1.25rem;
+}
+
+.upcoming-cover {
+  margin: 0;
+  width: 100%;
+}
+
+.upcoming-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow:
+    0 18px 48px rgba(17, 17, 17, 0.1),
+    0 2px 8px rgba(17, 17, 17, 0.06);
+}
+
+.upcoming-cover-col .book-buy {
+  width: 100%;
 }
 
 .upcoming-item .upcoming-body {

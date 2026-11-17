@@ -6,6 +6,7 @@
  * Tabs:
  * - updates → "Responses"
  * - contact → "Contact Us" (gid 1120393047)
+ * - rsvp → "RSVP" (Sentient Environment reservations)
  *
  * After changing this file: Deploy → Manage deployments → pencil →
  * New version → Deploy. Who has access: Anyone
@@ -15,6 +16,7 @@ var SPREADSHEET_ID = "15ycffCNMmwYmExBdnuI3bMUz96qFxS15ClS5fpChbuU";
 var CONTACT_SHEET_ID = 1120393047;
 var UPDATES_SHEET_NAME = "Responses";
 var CONTACT_SHEET_NAME = "Contact Us";
+var RSVP_SHEET_NAME = "RSVP";
 
 function doPost(e) {
   return handle_(e);
@@ -37,10 +39,14 @@ function handle_(e) {
 
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     const formType = String(data.form || "").toLowerCase();
-    const sheet =
-      formType === "contact"
-        ? getContactSheet_(ss)
-        : getUpdatesSheet_(ss);
+    var sheet;
+    if (formType === "contact") {
+      sheet = getContactSheet_(ss);
+    } else if (formType === "rsvp") {
+      sheet = getRsvpSheet_(ss);
+    } else {
+      sheet = getUpdatesSheet_(ss);
+    }
 
     if (formType === "contact") {
       ensureHeaders_(sheet, [
@@ -56,6 +62,23 @@ function handle_(e) {
         String(data.email || ""),
         String(data.topic || ""),
         String(data.message || ""),
+      ]);
+    } else if (formType === "rsvp") {
+      ensureHeaders_(sheet, [
+        "Timestamp",
+        "Book",
+        "Name",
+        "Email",
+        "Copies",
+        "Notified",
+      ]);
+      sheet.appendRow([
+        new Date(),
+        String(data.book || "Sentient Environment"),
+        String(data.name || ""),
+        String(data.email || ""),
+        String(data.copies || "1"),
+        "",
       ]);
     } else {
       ensureHeaders_(sheet, ["Timestamp", "Email"]);
@@ -98,6 +121,14 @@ function getContactSheet_(ss) {
   }
   if (!sheet) {
     throw new Error('Contact sheet "' + CONTACT_SHEET_NAME + '" not found');
+  }
+  return sheet;
+}
+
+function getRsvpSheet_(ss) {
+  var sheet = ss.getSheetByName(RSVP_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(RSVP_SHEET_NAME);
   }
   return sheet;
 }

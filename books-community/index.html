@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=books-instock-dot1" />
+    <link rel="stylesheet" href="/styles.css?v=books-rsvp-modal2" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -76,7 +76,7 @@
             <p class="upcoming-body">
               The works gathered in this volume share a premise: that the
               painting process can operate on the full range of human
-              perception, not vision alone…
+              perception, not vision…
             </p>
             <p class="entry-link">
               <a class="cta" href="/book-sensoria/" data-text="learn more">Learn more</a>
@@ -88,6 +88,11 @@
             <p class="upcoming-body">
               A second volume is forming with curator Stephanie Ibarra. Title and details to be announced. Please RSVP to reserve your copy
             </p>
+            <div class="upcoming-cover-col">
+              <button type="button" class="book-action-btn book-action-btn--rsvp" data-rsvp-open>
+                RSVP
+              </button>
+            </div>
             <p class="entry-link">
               <a class="cta" href="/book-two/" data-text="learn more">Learn more</a>
             </p>
@@ -100,6 +105,66 @@
         </p>
       </section>
     </main>
+
+
+    <div class="rsvp-modal" data-rsvp-modal>
+      <div class="rsvp-modal-backdrop" data-rsvp-close tabindex="-1"></div>
+      <div
+        class="rsvp-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rsvp-modal-title"
+        data-rsvp-dialog
+      >
+        <button type="button" class="rsvp-modal-close" data-rsvp-close aria-label="Close">
+          ×
+        </button>
+        <h2 id="rsvp-modal-title">Reserve Sentient Environment</h2>
+        <p class="rsvp-modal-lede">
+          Choose how many copies to reserve. We’ll email you when the book is
+          published and available to buy.
+        </p>
+        <form class="rsvp-form" data-rsvp-form>
+          <div class="rsvp-qty" data-rsvp-qty>
+            <span class="rsvp-qty-label" id="rsvp-qty-label">Copies</span>
+            <div class="rsvp-qty-controls">
+              <button type="button" class="rsvp-qty-btn" data-rsvp-minus aria-label="Fewer copies">−</button>
+              <input
+                class="rsvp-qty-input"
+                type="number"
+                name="copies"
+                value="1"
+                min="1"
+                max="20"
+                inputmode="numeric"
+                aria-labelledby="rsvp-qty-label"
+                data-rsvp-copies
+                required
+              />
+              <button type="button" class="rsvp-qty-btn" data-rsvp-plus aria-label="More copies">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rsvp-name">Name</label>
+            <input id="rsvp-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="rsvp-email">Email</label>
+            <input
+              id="rsvp-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <button type="submit" class="book-action-btn book-action-btn--rsvp rsvp-submit">
+            Reserve
+          </button>
+          <p class="form-note" data-rsvp-note hidden></p>
+        </form>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <nav class="footer-nav" aria-label="Footer">
@@ -117,7 +182,8 @@
       <p>© <span data-year></span> Offline Objects</p>
     </footer>
 
+    <script src="/form-config.js?v=4"></script>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-    <script src="/script.js?v=share8"></script>
+    <script src="/script.js?v=rsvp-modal2"></script>
   </body>
 </html>

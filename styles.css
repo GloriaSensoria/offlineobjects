@@ -1350,6 +1350,10 @@ main,
   margin: 0 0 1.25rem;
 }
 
+.upcoming-body + .upcoming-cover-col {
+  margin-top: 1.15rem;
+}
+
 .upcoming-cover {
   margin: 0;
   width: 100%;
@@ -1366,6 +1370,39 @@ main,
 
 .upcoming-cover-col .book-buy {
   width: 100%;
+}
+
+.book-action-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #635bff;
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.book-action-btn:hover,
+.book-action-btn:focus-visible {
+  filter: brightness(0.96);
+  opacity: 1;
+  font-weight: 600;
+}
+
+.book-action-btn--rsvp {
+  background: #f0a05a;
 }
 
 .upcoming-item .upcoming-body {
@@ -2138,4 +2175,147 @@ main,
     --ax: 50vw;
     --ay: 50vh;
   }
+}
+
+
+/* RSVP modal */
+.rsvp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.rsvp-modal.is-open {
+  display: grid;
+}
+
+.rsvp-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 26, 24, 0.42);
+  border: 0;
+  cursor: pointer;
+}
+
+.rsvp-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(26rem, 100%);
+  max-height: min(90vh, 40rem);
+  overflow: auto;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border-radius: 10px;
+  background: #f7f5f2;
+  box-shadow: 0 28px 80px rgba(17, 17, 17, 0.22);
+}
+
+.rsvp-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.85rem;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.rsvp-modal-close:hover,
+.rsvp-modal-close:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.rsvp-modal-dialog h2 {
+  margin: 0 1.5rem 0.65rem 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 4vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.rsvp-modal-lede {
+  margin: 0 0 1.35rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.rsvp-form {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.rsvp-qty {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.rsvp-qty-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--ink-faint);
+}
+
+.rsvp-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  padding: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.rsvp-qty-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.rsvp-qty-btn:hover,
+.rsvp-qty-btn:focus-visible {
+  background: rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.rsvp-qty-input {
+  width: 2.5rem;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  appearance: textfield;
+}
+
+.rsvp-qty-input::-webkit-outer-spin-button,
+.rsvp-qty-input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.rsvp-submit {
+  margin-top: 0.25rem;
+}
+
+body.rsvp-open {
+  overflow: hidden;
 }

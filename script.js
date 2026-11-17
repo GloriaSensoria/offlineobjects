@@ -31,14 +31,14 @@
     "";
 
   async function submitToSheet(payload, { form, note, successMessage }) {
-    if (!note) return;
+    if (!note) return false;
 
     note.hidden = false;
 
     if (!scriptUrl) {
       note.textContent =
         "Form isn’t connected yet. Add your Google Apps Script URL in form-config.js.";
-      return;
+      return false;
     }
 
     const button = form.querySelector('[type="submit"]');
@@ -75,9 +75,11 @@
         .split(/\s+Saved on\b/i)[0]
         .trim();
       form.reset();
+      return true;
     } catch (err) {
       note.textContent =
         "Something went wrong. Please try again or email dearofflineobjects@gmail.com.";
+      return false;
     } finally {
       if (button) button.disabled = false;
     }
@@ -128,6 +130,111 @@
       );
     });
   }
+
+
+  const rsvpModal = document.querySelector("[data-rsvp-modal]");
+  const rsvpForm = document.querySelector("[data-rsvp-form]");
+  const rsvpNote = document.querySelector("[data-rsvp-note]");
+  const rsvpCopies = document.querySelector("[data-rsvp-copies]");
+  const rsvpOpeners = document.querySelectorAll("[data-rsvp-open]");
+
+  if (rsvpModal && rsvpForm && rsvpCopies) {
+    const dialog = rsvpModal.querySelector("[data-rsvp-dialog]");
+    const minCopies = 1;
+    const maxCopies = 20;
+    let lastFocus = null;
+
+    const clampCopies = (value) => {
+      const n = Number.parseInt(value, 10);
+      if (!Number.isFinite(n)) return minCopies;
+      return Math.min(maxCopies, Math.max(minCopies, n));
+    };
+
+    const setCopies = (value) => {
+      rsvpCopies.value = String(clampCopies(value));
+    };
+
+    const openRsvp = () => {
+      lastFocus = document.activeElement;
+      rsvpModal.classList.add("is-open");
+      rsvpModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("rsvp-open");
+      setCopies(rsvpCopies.value || 1);
+      if (rsvpNote) {
+        rsvpNote.hidden = true;
+        rsvpNote.textContent = "";
+      }
+      const firstField = rsvpForm.querySelector("#rsvp-name") || rsvpCopies;
+      window.setTimeout(() => firstField?.focus(), 10);
+    };
+
+    const closeRsvp = () => {
+      rsvpModal.classList.remove("is-open");
+      rsvpModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("rsvp-open");
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    };
+
+    rsvpOpeners.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        openRsvp();
+      });
+    });
+
+    rsvpModal.querySelectorAll("[data-rsvp-close]").forEach((el) => {
+      el.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeRsvp();
+      });
+    });
+
+    rsvpModal.setAttribute("aria-hidden", "true");
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && rsvpModal.classList.contains("is-open")) closeRsvp();
+    });
+
+    rsvpModal.querySelector("[data-rsvp-minus]")?.addEventListener("click", () => {
+      setCopies(Number(rsvpCopies.value || 1) - 1);
+    });
+
+    rsvpModal.querySelector("[data-rsvp-plus]")?.addEventListener("click", () => {
+      setCopies(Number(rsvpCopies.value || 1) + 1);
+    });
+
+    rsvpCopies.addEventListener("change", () => setCopies(rsvpCopies.value));
+
+    rsvpForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(rsvpForm);
+      const name = String(data.get("name") || "").trim();
+      const email = String(data.get("email") || "").trim();
+      const copies = clampCopies(data.get("copies"));
+      if (!name || !email) return;
+
+      const ok = await submitToSheet(
+        {
+          form: "rsvp",
+          book: "Sentient Environment",
+          name,
+          email,
+          copies,
+        },
+        {
+          form: rsvpForm,
+          note: rsvpNote,
+          successMessage:
+            "Reserved — we’ll email you when Sentient Environment is in stock.",
+        }
+      );
+      if (ok) {
+        setCopies(1);
+        window.setTimeout(closeRsvp, 1600);
+      }
+    });
+  }
+
 
   const aura = document.querySelector("[data-aura]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

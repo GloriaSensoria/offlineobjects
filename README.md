@@ -59,6 +59,9 @@ window.OFFLINE_OBJECTS_FORMS = {
 Each submission appends a row:
 
 - **updates** (home signup) → **Responses** tab: Timestamp · Email  
-- **contact** (Contact Us) → **Contact Us** tab (`gid=1120393047`): Timestamp · Name · Email · Topic · Message
+- **contact** (Contact Us) → **Contact Us** tab (`gid=1120393047`): Timestamp · Name · Email · Topic · Message  
+- **rsvp** (Sentient Environment) → **RSVP** tab: Timestamp · Book · Name · Email · Copies · Notified  
+
+Use the **RSVP** tab to track reservations and mark **Notified** when you email people that the book is in stock.
 
 After editing `Code.gs` in Apps Script, deploy a **New version** for changes to go live.
